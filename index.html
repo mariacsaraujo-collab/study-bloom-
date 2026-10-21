@@ -1,289 +1,348 @@
- 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f7efff">
 <title>Study Bloom</title>
 <style>
-:root {
-  --pink:#f8dce9;
-  --purple:#e9ddff;
-  --blue:#dcecff;
-  --green:#e0f2e5;
-  --ink:#51465e;
-  --white:#fffdfd;
+:root{
+ --pink:#f8dce9;--purple:#e9ddff;--blue:#dcecff;
+ --green:#e0f2e5;--ink:#51465e;--white:#fffdfd;
 }
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#fbf8ff;
-  color:var(--ink);
-}
-header {
-  padding:25px 20px;
-  background:linear-gradient(120deg,#f8dce9,#e9ddff,#dcecff);
-  border-radius:0 0 28px 28px;
-}
-header small { letter-spacing:2px; }
-h1 { margin:8px 0; font-size:30px; }
-header p { margin-bottom:0; }
-nav {
-  display:flex;
-  gap:8px;
-  padding:15px;
-  overflow-x:auto;
-}
-nav button,.btn {
-  border:0;
-  border-radius:15px;
-  padding:12px 16px;
-  background:var(--purple);
-  color:var(--ink);
-  font-weight:bold;
-  cursor:pointer;
-  white-space:nowrap;
-}
-main { padding:0 15px 30px; max-width:900px; margin:auto; }
-h2 { font-size:20px; }
-.card {
-  background:var(--white);
-  border:1px solid #f0e8f5;
-  border-radius:20px;
-  padding:17px;
-  margin-bottom:15px;
-  box-shadow:0 4px 15px #6650800a;
-}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:10px;
-}
-.subject {
-  padding:15px;
-  border-radius:17px;
-  min-height:90px;
-  cursor:pointer;
-  border:0;
-  color:var(--ink);
-  text-align:left;
-  font-size:14px;
-}
-.subject strong { display:block; margin-bottom:7px; }
-.pink { background:var(--pink); }
-.purple { background:var(--purple); }
-.blue { background:var(--blue); }
-.green { background:var(--green); }
-input,textarea,select {
-  width:100%;
-  padding:12px;
-  margin:6px 0 10px;
-  border:1px solid #e5dbea;
-  border-radius:12px;
-  background:#fff;
-  color:var(--ink);
-  font:inherit;
-}
-textarea { min-height:120px; resize:vertical; }
-.task {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 0;
-  border-bottom:1px solid #f1eaf5;
-}
-.task input { width:auto; margin:0; }
-.done { text-decoration:line-through; opacity:.55; }
-#message { color:#8b699b; font-size:13px; }
-footer { text-align:center; padding:20px; color:#9b8ba8; font-size:12px; }
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fbf8ff;color:var(--ink)}
+header{padding:25px 20px;background:linear-gradient(120deg,var(--pink),var(--purple),var(--blue));border-radius:0 0 28px 28px}
+header small{letter-spacing:2px}
+h1{margin:8px 0;font-size:30px}
+nav{display:flex;gap:8px;padding:15px;overflow-x:auto}
+button,.btn{border:0;border-radius:13px;padding:11px 14px;background:var(--purple);color:var(--ink);font-weight:bold;cursor:pointer}
+nav button{white-space:nowrap}
+main{padding:0 15px 30px;max-width:950px;margin:auto}
+h2{font-size:20px}
+.card{background:var(--white);border:1px solid #f0e8f5;border-radius:20px;padding:17px;margin-bottom:15px;box-shadow:0 4px 15px #6650800a}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
+.subject{padding:15px;border-radius:17px;min-height:85px;cursor:pointer;border:0;color:var(--ink);text-align:left}
+.subject strong{display:block;margin-bottom:7px}
+.pink{background:var(--pink)}.purple{background:var(--purple)}.blue{background:var(--blue)}.green{background:var(--green)}
+input,textarea,select{width:100%;padding:12px;margin:6px 0 10px;border:1px solid #e5dbea;border-radius:12px;background:#fff;color:var(--ink);font:inherit}
+textarea{min-height:100px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1}
+.task{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #f1eaf5}
+.task input{width:auto;margin:0}
+.done{text-decoration:line-through;opacity:.55}
+.item{padding:12px 0;border-bottom:1px solid #f1eaf5;overflow-wrap:anywhere}
+.muted{color:#8b7996;font-size:13px}
+#message{color:#8b699b;font-size:13px}
+[hidden]{display:none!important}
+footer{text-align:center;padding:20px;color:#9b8ba8;font-size:12px}
 </style>
 </head>
 <body>
 <header>
-  <small>SEU CANTINHO DE ESTUDOS</small>
-  <h1>Study Bloom 🌷</h1>
-  <p>Floresça no seu tempo, um estudo de cada vez.</p>
+ <small>SEU CANTINHO DE ESTUDOS</small>
+ <h1>Study Bloom 🌷</h1>
+ <p>Floresça no seu tempo, um estudo de cada vez.</p>
 </header>
 
 <nav>
-  <button onclick="showSection('inicio')">Início</button>
-  <button onclick="showSection('materias')">Matérias</button>
-  <button onclick="showSection('tarefas')">Tarefas</button>
-  <button onclick="showSection('notas')">Notas</button>
-  <button onclick="showSection('caderno')">Caderno</button>
+ <button onclick="show('inicio')">Início</button>
+ <button onclick="show('materias')">Matérias</button>
+ <button onclick="show('tarefas')">Tarefas</button>
+ <button onclick="show('calendario')">Calendário</button>
+ <button onclick="show('notas')">Notas</button>
+ <button onclick="show('caderno')">Caderno</button>
+ <button onclick="show('biblioteca')">Biblioteca</button>
+ <button onclick="show('flashcards')">Flashcards</button>
+ <button onclick="show('backup')">Backup</button>
 </nav>
 
 <main>
 <section id="inicio">
-  <div class="card">
-    <h2>Seu espaço de hoje</h2>
-    <p>Pequenos passos também levam a grandes conquistas.</p>
-    <p id="today"></p>
-    <strong id="taskCount">Você consegue!</strong>
+ <div class="card">
+  <h2>Seu painel de estudos 🌸</h2>
+  <p id="today"></p>
+  <div class="grid">
+   <div class="subject pink"><strong>Matérias</strong><span id="subjectCount"></span></div>
+   <div class="subject purple"><strong>Tarefas pendentes</strong><span id="taskCount"></span></div>
+   <div class="subject blue"><strong>Notas registradas</strong><span id="gradeCount"></span></div>
+   <div class="subject green"><strong>Próximos eventos</strong><span id="eventCount"></span></div>
   </div>
-  <div class="card">
-    <h2>Atalhos de estudo</h2>
-    <div class="grid">
-      <button class="subject pink" onclick="showSection('materias')"><strong>📚 Matérias</strong>Organize seus estudos</button>
-      <button class="subject purple" onclick="showSection('tarefas')"><strong>🗓️ Planejamento</strong>Suas tarefas</button>
-      <button class="subject blue" onclick="showSection('notas')"><strong>✏️ Notas</strong>Acompanhe suas notas</button>
-      <button class="subject green" onclick="showSection('caderno')"><strong>📔 Caderno</strong>Guarde suas anotações</button>
-    </div>
+  <p id="average"></p>
+ </div>
+ <div class="card">
+  <h2>Seus atalhos</h2>
+  <div class="grid">
+   <button class="subject pink" onclick="show('materias')"><strong>📚 Matérias</strong>Organize as disciplinas</button>
+   <button class="subject purple" onclick="show('calendario')"><strong>🗓️ Calendário</strong>Planeje sua semana</button>
+   <button class="subject blue" onclick="show('caderno')"><strong>📔 Caderno</strong>Guarde suas anotações</button>
+   <button class="subject green" onclick="show('flashcards')"><strong>🧠 Revisão</strong>Pratique com flashcards</button>
   </div>
+ </div>
+ <div class="card"><h2>Próximos compromissos</h2><div id="upcoming"></div></div>
 </section>
 
 <section id="materias" hidden>
-  <div class="card">
-    <h2>📚 Minhas matérias</h2>
-    <div class="grid" id="subjectList"></div>
-  </div>
+ <div class="card"><h2>📚 Minhas matérias</h2><div class="grid" id="subjectList"></div></div>
 </section>
 
 <section id="tarefas" hidden>
-  <div class="card">
-    <h2>🗓️ Minhas tarefas</h2>
-    <input id="taskName" placeholder="Ex.: Revisar anatomia dental">
-    <input id="taskDate" type="date">
-    <button class="btn" onclick="addTask()">+ Adicionar tarefa</button>
-    <div id="tasks"></div>
-  </div>
+ <div class="card">
+  <h2>✅ Minhas tarefas</h2>
+  <input id="taskName" placeholder="Ex.: Revisar anatomia dental">
+  <div class="row"><input id="taskDate" type="date"><select id="taskSubject"><option value="">Escolha a matéria (opcional)</option></select></div>
+  <button class="btn" onclick="addTask()">+ Adicionar tarefa</button>
+  <div id="tasks"></div>
+ </div>
+</section>
+
+<section id="calendario" hidden>
+ <div class="card">
+  <h2>🗓️ Calendário acadêmico</h2>
+  <p class="muted">Cadastre provas, aulas, trabalhos e outros compromissos.</p>
+  <input id="eventName" placeholder="Nome do evento">
+  <div class="row"><input id="eventDate" type="date"><select id="eventType"><option>Prova</option><option>Trabalho</option><option>Aula</option><option>Entrega</option><option>Outro</option></select></div>
+  <select id="eventSubject"><option value="">Escolha a matéria (opcional)</option></select>
+  <button class="btn" onclick="addEvent()">+ Adicionar evento</button>
+  <div id="events"></div>
+ </div>
 </section>
 
 <section id="notas" hidden>
-  <div class="card">
-    <h2>✏️ Minhas notas</h2>
-    <input id="gradeSubject" placeholder="Nome da matéria">
-    <input id="gradeValue" type="number" min="0" max="10" step="0.1" placeholder="Nota de 0 a 10">
-    <button class="btn" onclick="addGrade()">Salvar nota</button>
-    <div id="grades"></div>
-    <p id="average"></p>
-  </div>
+ <div class="card">
+  <h2>✏️ Minhas notas</h2>
+  <input id="gradeSubject" placeholder="Nome da matéria">
+  <div class="row"><input id="gradeValue" type="number" min="0" max="10" step=".1" placeholder="Nota de 0 a 10"><input id="gradeLabel" placeholder="Ex.: Prova 1"></div>
+  <button class="btn" onclick="addGrade()">Salvar nota</button>
+  <div id="grades"></div><p id="gradeAverage"></p>
+ </div>
 </section>
 
 <section id="caderno" hidden>
-  <div class="card">
-    <h2>📔 Meu caderno digital</h2>
-    <p>Escreva suas anotações aqui. Elas serão guardadas neste navegador.</p>
-    <input id="noteTitle" placeholder="Título da anotação">
-    <textarea id="noteText" placeholder="Digite suas anotações de aula..."></textarea>
-    <button class="btn" onclick="saveNote()">Salvar anotação</button>
-    <div id="savedNotes"></div>
-  </div>
+ <div class="card">
+  <h2>📔 Meu caderno digital</h2>
+  <p class="muted">Escolha a matéria e salve suas anotações.</p>
+  <select id="noteSubject"><option value="">Escolha uma matéria</option></select>
+  <input id="noteTitle" placeholder="Título da anotação">
+  <textarea id="noteText" placeholder="Digite suas anotações de aula..."></textarea>
+  <button class="btn" onclick="saveNote()">Salvar anotação</button>
+  <div id="savedNotes"></div>
+ </div>
 </section>
-<p id="message"></p>
-</main>
 
-<footer>Feito com carinho para sua jornada na Odontologia 🌸</footer>
+<section id="biblioteca" hidden>
+ <div class="card">
+  <h2>📂 Biblioteca de estudos</h2>
+  <p class="muted">Cadastre links para seus slides, PDFs e materiais online. Os arquivos continuam armazenados no serviço original.</p>
+  <input id="resourceName" placeholder="Nome do material">
+  <select id="resourceSubject"><option value="">Escolha uma matéria (opcional)</option></select>
+  <input id="resourceURL" type="url" placeholder="Cole o link do PDF ou material">
+  <button class="btn" onclick="addResource()">+ Salvar material</button>
+  <div id="resources"></div>
+ </div>
+</section>
+
+<section id="flashcards" hidden>
+ <div class="card">
+  <h2>🧠 Flashcards</h2>
+  <p class="muted">Crie cartões de perguntas e respostas para revisar.</p>
+  <select id="cardSubject"><option value="">Escolha uma matéria</option></select>
+  <textarea id="cardQuestion" placeholder="Pergunta"></textarea>
+  <textarea id="cardAnswer" placeholder="Resposta"></textarea>
+  <button class="btn" onclick="addCard()">+ Criar flashcard</button>
+  <hr>
+  <div id="studyCard" class="card">
+   <p id="studyQuestion">Seus cartões aparecerão aqui.</p>
+   <p id="studyAnswer" hidden></p>
+   <button class="btn" onclick="revealAnswer()">Mostrar resposta</button>
+   <button class="btn" onclick="nextCard()">Próximo cartão</button>
+  </div>
+  <div id="cardList"></div>
+ </div>
+</section>
+
+<section id="backup" hidden>
+ <div class="card">
+  <h2>🛟 Backup dos seus dados</h2>
+  <p>Exporte tarefas, notas, anotações, eventos, materiais e flashcards para um arquivo de segurança.</p>
+  <button class="btn" onclick="exportBackup()">Baixar backup</button>
+  <hr>
+  <p>Para restaurar um backup JSON criado por este aplicativo:</p>
+  <input id="backupFile" type="file" accept=".json,application/json">
+  <button class="btn" onclick="importBackup()">Restaurar backup</button>
+  <p class="muted">Restaurar substitui os dados atuais deste navegador pelos dados do arquivo selecionado.</p>
+ </div>
+</section>
+
+<p id="message" aria-live="polite"></p>
+</main>
+<footer>Feito com carinho para sua jornada na Odontologia 🌷</footer>
 
 <script>
-const subjects = [
+const subjects=[
 "Biologia Celular","Bioquímica","Matérias Pendentes","Fisiologia",
 "Anatomia Cabeça e Pescoço","Anatomia e Escultura Dental",
-"Microbiologia","Biossegurança","Materiais Odontológicos 2",
-"Matérias Regulares"
+"Microbiologia","Biossegurança","Materiais Odontológicos 2","Matérias Regulares"
 ];
-const colors = ["pink","purple","blue","green"];
-let tasks = JSON.parse(localStorage.getItem("sb_tasks") || "[]");
-let grades = JSON.parse(localStorage.getItem("sb_grades") || "[]");
-let notes = JSON.parse(localStorage.getItem("sb_notes") || "[]");
+const colors=["pink","purple","blue","green"];
+const get=(key,fallback=[])=>{
+ try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}
+ catch{return fallback}
+};
+let tasks=get("sb_tasks"), grades=get("sb_grades"), notes=get("sb_notes");
+let events=get("sb_events"), resources=get("sb_resources"), cards=get("sb_cards");
+let currentCard=0;
 
-function showSection(id) {
-  document.querySelectorAll("main section").forEach(s => s.hidden = true);
-  document.getElementById(id).hidden = false;
-  window.scrollTo(0,0);
+function show(id){
+ document.querySelectorAll("main section").forEach(s=>s.hidden=true);
+ document.getElementById(id).hidden=false;
+ window.scrollTo(0,0);
 }
-function persist(key,value) {
-  localStorage.setItem(key,JSON.stringify(value));
+function persist(key,value){localStorage.setItem(key,JSON.stringify(value))}
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function dateText(d){
+ if(!d)return "";
+ const p=d.split("-");
+ return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:d;
 }
-function renderSubjects() {
-  document.getElementById("subjectList").innerHTML = subjects.map((s,i) =>
-    `<button class="subject ${colors[i%4]}" onclick="openSubject('${s.replace(/'/g,"\\'")}')"><strong>📖 ${s}</strong>Abrir matéria →</button>`
-  ).join("");
+function fillSubjects(){
+ ["taskSubject","eventSubject","noteSubject","resourceSubject","cardSubject"].forEach(id=>{
+  const el=document.getElementById(id), old=el.value;
+  el.innerHTML=(id==="taskSubject"||id==="eventSubject"||id==="resourceSubject")
+   ?'<option value="">Escolha a matéria (opcional)</option>'
+   :'<option value="">Escolha uma matéria</option>';
+  subjects.forEach(s=>el.add(new Option(s,s)));
+  el.value=old;
+ });
+ document.getElementById("subjectList").innerHTML=subjects.map((s,i)=>
+  `<button class="subject ${colors[i%4]}" onclick="openSubject('${safe(s)}')"><strong>📖 ${safe(s)}</strong>Abrir caderno →</button>`
+ ).join("");
+ document.getElementById("subjectCount").textContent=subjects.length+" disciplinas";
 }
-function openSubject(name) {
-  document.getElementById("noteTitle").value = name;
-  showSection("caderno");
+function openSubject(s){document.getElementById("noteSubject").value=s;document.getElementById("noteTitle").value=s;show("caderno")}
+function addTask(){
+ const name=document.getElementById("taskName").value.trim();
+ if(!name)return alert("Digite o nome da tarefa.");
+ tasks.push({name,date:document.getElementById("taskDate").value,subject:document.getElementById("taskSubject").value,done:false});
+ persist("sb_tasks",tasks);document.getElementById("taskName").value="";renderTasks();dashboard();
 }
-function addTask() {
-  const name = document.getElementById("taskName").value.trim();
-  if(!name) return alert("Digite o nome da tarefa.");
-  tasks.push({name,date:document.getElementById("taskDate").value,done:false});
-  persist("sb_tasks",tasks);
-  document.getElementById("taskName").value="";
-  renderTasks();
+function toggleTask(i,checked){tasks[i].done=checked;persist("sb_tasks",tasks);renderTasks();dashboard()}
+function deleteTask(i){tasks.splice(i,1);persist("sb_tasks",tasks);renderTasks();dashboard()}
+function renderTasks(){
+ document.getElementById("tasks").innerHTML=tasks.map((t,i)=>
+ `<div class="task"><input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${i},this.checked)"><div style="flex:1"><span class="${t.done?"done":""}">${safe(t.name)}</span><div class="muted">${safe(t.subject||"Sem matéria")} ${t.date?"• "+dateText(t.date):""}</div></div><button onclick="deleteTask(${i})">Excluir</button></div>`
+ ).join("")||"<p>Nenhuma tarefa cadastrada.</p>";
 }
-function toggleTask(i,checked) {
-  tasks[i].done=checked;
-  persist("sb_tasks",tasks);
-  renderTasks();
+function addGrade(){
+ const subject=document.getElementById("gradeSubject").value.trim(), raw=document.getElementById("gradeValue").value,value=Number(raw),label=document.getElementById("gradeLabel").value.trim();
+ if(!subject||raw===""||value<0||value>10)return alert("Informe a matéria e uma nota entre 0 e 10.");
+ grades.push({subject,value,label});persist("sb_grades",grades);
+ document.getElementById("gradeSubject").value="";document.getElementById("gradeValue").value="";document.getElementById("gradeLabel").value="";
+ renderGrades();dashboard();
 }
-function deleteTask(i) {
-  tasks.splice(i,1);
-  persist("sb_tasks",tasks);
-  renderTasks();
+function deleteGrade(i){grades.splice(i,1);persist("sb_grades",grades);renderGrades();dashboard()}
+function renderGrades(){
+ document.getElementById("grades").innerHTML=grades.map((g,i)=>
+ `<div class="item">${safe(g.subject)} ${g.label?"— "+safe(g.label):""}: <strong>${Number(g.value).toFixed(1)}</strong> <button onclick="deleteGrade(${i})">Excluir</button></div>`
+ ).join("")||"<p>Nenhuma nota cadastrada.</p>";
+ const avg=grades.length?grades.reduce((a,g)=>a+Number(g.value),0)/grades.length:null;
+ document.getElementById("gradeAverage").textContent=avg===null?"":`Média simples das notas cadastradas: ${avg.toFixed(2)}`;
 }
-function renderTasks() {
-  document.getElementById("tasks").innerHTML = tasks.map((t,i)=>
-    `<div class="task"><input type="checkbox" ${t.done?"checked":""} onchange="toggleTask(${i},this.checked)"><span class="${t.done?"done":""}">${t.name}${t.date?" — "+t.date:""}</span><button class="btn" onclick="deleteTask(${i})">×</button></div>`
-  ).join("") || "<p>Nenhuma tarefa cadastrada ainda.</p>";
-  document.getElementById("taskCount").textContent =
-    tasks.filter(t=>!t.done).length + " tarefa(s) pendente(s)";
+function saveNote(){
+ const title=document.getElementById("noteTitle").value.trim()||"Anotação sem título";
+ const text=document.getElementById("noteText").value.trim(),subject=document.getElementById("noteSubject").value;
+ if(!text)return alert("Escreva uma anotação primeiro.");
+ notes.push({title,text,subject});persist("sb_notes",notes);
+ document.getElementById("noteText").value="";renderNotes();msg("Anotação salva neste navegador.");
 }
-function addGrade() {
-  const subject=document.getElementById("gradeSubject").value.trim();
-  const value=Number(document.getElementById("gradeValue").value);
-  if(!subject || document.getElementById("gradeValue").value==="" || value<0 || value>10)
-    return alert("Informe a matéria e uma nota entre 0 e 10.");
-  grades.push({subject,value});
-  persist("sb_grades",grades);
-  document.getElementById("gradeSubject").value="";
-  document.getElementById("gradeValue").value="";
-  renderGrades();
+function deleteNote(i){notes.splice(i,1);persist("sb_notes",notes);renderNotes()}
+function renderNotes(){
+ document.getElementById("savedNotes").innerHTML=notes.map((n,i)=>
+ `<div class="card"><strong>${safe(n.title)}</strong><p class="muted">${safe(n.subject||"Sem matéria")}</p><p>${safe(n.text).replace(/\n/g,"<br>")}</p><button onclick="deleteNote(${i})">Excluir</button></div>`
+ ).join("")||"<p>Suas anotações salvas aparecerão aqui.</p>";
 }
-function renderGrades() {
-  document.getElementById("grades").innerHTML = grades.map((g,i)=>
-    `<p>${g.subject}: <strong>${g.value.toFixed(1)}</strong> <button class="btn" onclick="deleteGrade(${i})">×</button></p>`
-  ).join("") || "<p>Nenhuma nota cadastrada.</p>";
-  const avg=grades.length?grades.reduce((a,g)=>a+g.value,0)/grades.length:0;
-  document.getElementById("average").textContent=grades.length?"Média simples das notas cadastradas: "+avg.toFixed(2):"";
+function addEvent(){
+ const name=document.getElementById("eventName").value.trim(),date=document.getElementById("eventDate").value;
+ if(!name||!date)return alert("Informe o nome e a data do evento.");
+ events.push({name,date,type:document.getElementById("eventType").value,subject:document.getElementById("eventSubject").value});
+ persist("sb_events",events);document.getElementById("eventName").value="";renderEvents();dashboard();
 }
-function deleteGrade(i) {
-  grades.splice(i,1);
-  persist("sb_grades",grades);
-  renderGrades();
+function deleteEvent(i){events.splice(i,1);persist("sb_events",events);renderEvents();dashboard()}
+function renderEvents(){
+ events.sort((a,b)=>a.date.localeCompare(b.date));
+ document.getElementById("events").innerHTML=events.map((e,i)=>
+ `<div class="item"><strong>${dateText(e.date)} — ${safe(e.name)}</strong><div class="muted">${safe(e.type)} • ${safe(e.subject||"Sem matéria")}</div><button onclick="deleteEvent(${i})">Excluir</button></div>`
+ ).join("")||"<p>Nenhum evento cadastrado.</p>";
 }
-function saveNote() {
-  const title=document.getElementById("noteTitle").value.trim()||"Anotação sem título";
-  const text=document.getElementById("noteText").value.trim();
-  if(!text) return alert("Escreva alguma anotação primeiro.");
-  notes.push({title,text});
-  persist("sb_notes",notes);
-  document.getElementById("noteTitle").value="";
-  document.getElementById("noteText").value="";
-  renderNotes();
-  document.getElementById("message").textContent="Anotação salva neste navegador.";
+function addResource(){
+ const name=document.getElementById("resourceName").value.trim(),url=document.getElementById("resourceURL").value.trim();
+ if(!name||!url)return alert("Informe o nome e o link do material.");
+ try{const u=new URL(url);if(!["http:","https:"].includes(u.protocol))throw Error();}
+ catch{return alert("Cole um endereço válido começando com https:// ou http://");}
+ resources.push({name,url,subject:document.getElementById("resourceSubject").value});
+ persist("sb_resources",resources);document.getElementById("resourceName").value="";document.getElementById("resourceURL").value="";renderResources();
 }
-function deleteNote(i) {
-  notes.splice(i,1);
-  persist("sb_notes",notes);
-  renderNotes();
+function deleteResource(i){resources.splice(i,1);persist("sb_resources",resources);renderResources()}
+function renderResources(){
+ document.getElementById("resources").innerHTML=resources.map((r,i)=>
+ `<div class="item"><strong>${safe(r.name)}</strong><div class="muted">${safe(r.subject||"Sem matéria")}</div><p><a href="${safe(r.url)}" target="_blank" rel="noopener">Abrir material</a></p><button onclick="deleteResource(${i})">Excluir</button></div>`
+ ).join("")||"<p>Nenhum material cadastrado.</p>";
 }
-function renderNotes() {
-  document.getElementById("savedNotes").innerHTML=notes.map((n,i)=>
-    `<div class="card"><strong>${escapeHTML(n.title)}</strong><p>${escapeHTML(n.text).replace(/\n/g,"<br>")}</p><button class="btn" onclick="deleteNote(${i})">Excluir</button></div>`
-  ).join("") || "<p>Suas anotações salvas aparecerão aqui.</p>";
+function addCard(){
+ const question=document.getElementById("cardQuestion").value.trim(),answer=document.getElementById("cardAnswer").value.trim(),subject=document.getElementById("cardSubject").value;
+ if(!question||!answer)return alert("Preencha a pergunta e a resposta.");
+ cards.push({question,answer,subject});persist("sb_cards",cards);
+ document.getElementById("cardQuestion").value="";document.getElementById("cardAnswer").value="";
+ currentCard=cards.length-1;renderCards();
 }
-function escapeHTML(s) {
-  return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function renderCards(){
+ const c=cards[currentCard];
+ document.getElementById("studyQuestion").textContent=c?c.question:"Crie seu primeiro flashcard!";
+ document.getElementById("studyAnswer").textContent=c?c.answer:"";
+ document.getElementById("studyAnswer").hidden=true;
+ document.getElementById("cardList").innerHTML=cards.map((x,i)=>
+ `<div class="item">${safe(x.subject||"Sem matéria")}: ${safe(x.question)} <button onclick="removeCard(${i})">Excluir</button></div>`
+ ).join("");
 }
-document.getElementById("today").textContent =
-  new Date().toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"});
-renderSubjects();
-renderTasks();
-renderGrades();
-renderNotes();
+function revealAnswer(){if(cards.length)document.getElementById("studyAnswer").hidden=false}
+function nextCard(){if(cards.length){currentCard=(currentCard+1)%cards.length;renderCards()}}
+function removeCard(i){cards.splice(i,1);currentCard=cards.length?currentCard%cards.length:0;persist("sb_cards",cards);renderCards()}
+function dashboard(){
+ document.getElementById("taskCount").textContent=tasks.filter(t=>!t.done).length;
+ document.getElementById("gradeCount").textContent=grades.length;
+ const avg=grades.length?grades.reduce((a,g)=>a+Number(g.value),0)/grades.length:null;
+ document.getElementById("average").textContent=avg===null?"Cadastre suas notas para acompanhar sua média.":"Sua média simples atual é "+avg.toFixed(2)+".";
+ const today=new Date().toISOString().slice(0,10);
+ document.getElementById("eventCount").textContent=events.filter(e=>e.date>=today).length;
+ const upcoming=events.filter(e=>e.date>=today).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
+ document.getElementById("upcoming").innerHTML=upcoming.map(e=>`<div class="item">${dateText(e.date)} — ${safe(e.name)} <span class="muted">(${safe(e.type)})</span></div>`).join("")||"Nenhum evento futuro cadastrado.";
+}
+function exportBackup(){
+ const data={tasks,grades,notes,events,resources,cards,exportedAt:new Date().toISOString()};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="study-bloom-backup.json";a.click();URL.revokeObjectURL(a.href);
+}
+function importBackup(){
+ const file=document.getElementById("backupFile").files[0];if(!file)return alert("Escolha um arquivo JSON.");
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const d=JSON.parse(reader.result);
+   if(!d||!Array.isArray(d.tasks)||!Array.isArray(d.grades)||!Array.isArray(d.notes))throw Error();
+   if(!confirm("Isso substituirá os dados atuais deste navegador. Continuar?"))return;
+   tasks=d.tasks;grades=d.grades;notes=d.notes;events=Array.isArray(d.events)?d.events:[];resources=Array.isArray(d.resources)?d.resources:[];cards=Array.isArray(d.cards)?d.cards:[];
+   persist("sb_tasks",tasks);persist("sb_grades",grades);persist("sb_notes",notes);persist("sb_events",events);persist("sb_resources",resources);persist("sb_cards",cards);
+   renderAll();msg("Backup restaurado.");
+  }catch{alert("Não foi possível ler esse backup. Selecione um arquivo criado pelo Study Bloom.")}
+ };
+ reader.readAsText(file);
+}
+function msg(t){document.getElementById("message").textContent=t}
+function renderAll(){fillSubjects();renderTasks();renderGrades();renderNotes();renderEvents();renderResources();renderCards();dashboard()}
+document.getElementById("today").textContent=new Date().toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"});
+renderAll();
 </script>
 </body>
 </html>
